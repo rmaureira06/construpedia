@@ -1,13 +1,13 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <title>Construpedia</title>
 <link rel="manifest" href="manifest.json">
 <meta name="theme-color" content="#d9631b">
 <link rel="apple-touch-icon" href="icon-192.png">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tabler-icons/2.44.0/tabler-icons.min.css">
+<script src="https://www.google.com/recaptcha/api.js" async defer></script>
 <style>
   * { box-sizing: border-box; margin: 0; padding: 0; }
   :root {
@@ -550,6 +550,10 @@
 
       <label for="fm-message">Mensaje</label>
       <textarea id="fm-message" name="Mensaje" required placeholder="Escribe tu sugerencia o comentario aquí..."></textarea>
+
+      <input type="text" name="_gotcha" style="display:none" tabindex="-1" autocomplete="off">
+
+      <div class="g-recaptcha" data-sitekey="6Leh1XwtAAAAAI9SV49k_33kWQLuUiH7uOvom2TJ" style="margin-top:14px; transform:scale(0.9); transform-origin:left;"></div>
 
       <div class="fm-row">
         <button type="button" class="fm-btn fm-cancel" id="fm-cancel">Cancelar</button>
@@ -1344,6 +1348,11 @@ feedbackOverlay.addEventListener('click', (e) => {
 
 feedbackForm.addEventListener('submit', async (e) => {
   e.preventDefault();
+  if (typeof grecaptcha !== 'undefined' && grecaptcha.getResponse().length === 0) {
+    fmStatus.textContent = 'Por favor marca la casilla "No soy un robot".';
+    fmStatus.className = 'fm-status err';
+    return;
+  }
   fmSubmit.disabled = true;
   fmSubmit.textContent = 'Enviando...';
   fmStatus.textContent = '';
@@ -1358,14 +1367,17 @@ feedbackForm.addEventListener('submit', async (e) => {
       fmStatus.textContent = '¡Gracias! Tu mensaje fue enviado.';
       fmStatus.classList.add('ok');
       feedbackForm.reset();
+      if (typeof grecaptcha !== 'undefined') grecaptcha.reset();
       setTimeout(closeFeedback, 1600);
     } else {
       fmStatus.textContent = 'No se pudo enviar. Intenta de nuevo.';
       fmStatus.classList.add('err');
+      if (typeof grecaptcha !== 'undefined') grecaptcha.reset();
     }
   } catch (err) {
     fmStatus.textContent = 'Error de conexión. Intenta de nuevo.';
     fmStatus.classList.add('err');
+    if (typeof grecaptcha !== 'undefined') grecaptcha.reset();
   } finally {
     fmSubmit.disabled = false;
     fmSubmit.textContent = 'Enviar';
