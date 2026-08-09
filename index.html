@@ -451,6 +451,30 @@
     color: #fff;
   }
   .feedback-modal .fm-submit:disabled { opacity: 0.6; }
+  .fm-counter {
+    text-align: right;
+    font-size: 11px;
+    color: var(--text-muted);
+    margin-top: 4px;
+  }
+  .fm-counter.fm-counter-limit {
+    color: #b8341a;
+    font-weight: 600;
+  }
+  .fm-adblock-note {
+    display: flex;
+    gap: 8px;
+    align-items: flex-start;
+    background: var(--accent-bg);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 10px 12px;
+    margin-top: 14px;
+    font-size: 11.5px;
+    color: var(--accent-text);
+    line-height: 1.5;
+  }
+  .fm-adblock-note i { font-size: 15px; flex-shrink: 0; margin-top: 1px; }
   .fm-status {
     font-size: 12.5px;
     margin-top: 10px;
@@ -533,6 +557,10 @@
   <div class="feedback-modal">
     <h3>Sugerencias y feedback</h3>
     <p class="fm-sub">¿Encontraste un error, falta un término o tienes una idea? Cuéntanos.</p>
+    <div class="fm-adblock-note">
+      <i class="ti ti-info-circle"></i>
+      <span>Si no ves la casilla de verificación más abajo, prueba desactivando tu bloqueador de anuncios (uBlock, AdBlock, etc.) para esta página. Es necesario para evitar spam.</span>
+    </div>
     <form id="feedback-form" action="https://formspree.io/f/xwlevjnv" method="POST">
       <label for="fm-type">Tipo de mensaje</label>
       <select id="fm-type" name="Tipo">
@@ -549,7 +577,8 @@
       <input type="email" id="fm-email" name="Correo" placeholder="tu@correo.cl">
 
       <label for="fm-message">Mensaje</label>
-      <textarea id="fm-message" name="Mensaje" required placeholder="Escribe tu sugerencia o comentario aquí..."></textarea>
+      <textarea id="fm-message" name="Mensaje" required maxlength="1000" placeholder="Escribe tu sugerencia o comentario aquí..."></textarea>
+      <p class="fm-counter" id="fm-counter">0/1000</p>
 
       <input type="text" name="_gotcha" style="display:none" tabindex="-1" autocomplete="off">
 
@@ -1318,6 +1347,14 @@ const fmCancel = document.getElementById('fm-cancel');
 const fmSubmit = document.getElementById('fm-submit');
 const fmStatus = document.getElementById('fm-status');
 const fmClose = document.getElementById('fm-close');
+const fmMessage = document.getElementById('fm-message');
+const fmCounter = document.getElementById('fm-counter');
+
+fmMessage.addEventListener('input', () => {
+  const len = fmMessage.value.length;
+  fmCounter.textContent = len + '/1000';
+  fmCounter.classList.toggle('fm-counter-limit', len >= 1000);
+});
 
 if (localStorage.getItem('construpedia_fb_hidden') === '1') {
   feedbackBtn.classList.add('hidden-fb');
@@ -1348,7 +1385,12 @@ feedbackOverlay.addEventListener('click', (e) => {
 
 feedbackForm.addEventListener('submit', async (e) => {
   e.preventDefault();
-  if (typeof grecaptcha !== 'undefined' && grecaptcha.getResponse().length === 0) {
+  if (typeof grecaptcha === 'undefined') {
+    fmStatus.textContent = 'No se pudo cargar la verificación anti-spam. Desactiva tu bloqueador de anuncios para esta página e intenta de nuevo.';
+    fmStatus.className = 'fm-status err';
+    return;
+  }
+  if (grecaptcha.getResponse().length === 0) {
     fmStatus.textContent = 'Por favor marca la casilla "No soy un robot".';
     fmStatus.className = 'fm-status err';
     return;
