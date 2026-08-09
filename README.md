@@ -28,6 +28,7 @@ Glosario y enciclopedia de términos de construcción civil chilena, con más de
 ## Autor
 
 **Ricardo Maureira Arroyo**
+
 Estudiante de Construcción Civil, INACAP Sede Curicó (Sexto Semestre, 2026)
 
 📧 ricardo.maureira03@inacapmail.cl
