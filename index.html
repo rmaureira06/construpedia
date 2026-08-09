@@ -312,6 +312,152 @@
     transform: translateY(0);
   }
   .fab-scroll:active { transform: scale(0.92); }
+  .fab-feedback {
+    position: fixed;
+    bottom: 18px;
+    left: max(14px, calc((100vw - 480px) / 2 + 14px));
+    max-width: min(78vw, 300px);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 11px 16px 11px 13px;
+    border-radius: 999px;
+    background: #0ea5e9;
+    color: #ffffff;
+    border: none;
+    font-size: 12.5px;
+    font-weight: 700;
+    font-family: inherit;
+    line-height: 1.25;
+    text-align: left;
+    box-shadow: 0 3px 14px rgba(14, 165, 233, 0.4);
+    z-index: 20;
+    cursor: pointer;
+    transition: transform 0.15s ease, box-shadow 0.15s ease, opacity 0.2s ease;
+  }
+  .fab-feedback i { font-size: 18px; flex-shrink: 0; }
+  .fab-feedback:active { transform: scale(0.96); }
+  .fab-feedback:hover { box-shadow: 0 4px 18px rgba(14, 165, 233, 0.5); }
+  .fab-feedback.hidden-fb { display: none; }
+  .fab-feedback .fm-close {
+    flex-shrink: 0;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.25);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    margin-left: 2px;
+  }
+  .fab-feedback .fm-close:hover { background: rgba(255,255,255,0.4); }
+  .fab-feedback-restore {
+    position: fixed;
+    bottom: 18px;
+    left: max(14px, calc((100vw - 480px) / 2 + 14px));
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: #0ea5e9;
+    color: #ffffff;
+    border: none;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    font-size: 17px;
+    box-shadow: 0 3px 12px rgba(14, 165, 233, 0.4);
+    z-index: 20;
+    cursor: pointer;
+  }
+  .fab-feedback-restore.show-fb { display: flex; }
+  .fab-feedback-restore:active { transform: scale(0.92); }
+  @media (max-width: 400px) {
+    .fab-feedback span.fm-label { display: none; }
+    .fab-feedback { padding: 12px; border-radius: 50%; max-width: none; }
+  }
+  .feedback-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(43, 33, 24, 0.55);
+    z-index: 40;
+    display: none;
+    align-items: flex-end;
+    justify-content: center;
+  }
+  .feedback-overlay.open { display: flex; }
+  .feedback-modal {
+    background: var(--card);
+    width: 100%;
+    max-width: 480px;
+    border-radius: 18px 18px 0 0;
+    padding: 20px 18px 24px;
+    box-shadow: 0 -4px 20px rgba(43, 33, 24, 0.25);
+    max-height: 88vh;
+    overflow-y: auto;
+  }
+  .feedback-modal h3 {
+    font-size: 17px;
+    color: var(--text-primary);
+    margin-bottom: 4px;
+  }
+  .feedback-modal p.fm-sub {
+    font-size: 12.5px;
+    color: var(--text-secondary);
+    margin-bottom: 14px;
+  }
+  .feedback-modal label {
+    display: block;
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--text-secondary);
+    margin: 12px 0 5px;
+  }
+  .feedback-modal select,
+  .feedback-modal input[type="text"],
+  .feedback-modal input[type="email"],
+  .feedback-modal textarea {
+    width: 100%;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 10px 12px;
+    font-size: 14px;
+    font-family: inherit;
+    color: var(--text-primary);
+    background: var(--bg);
+    resize: vertical;
+  }
+  .feedback-modal textarea { min-height: 90px; }
+  .feedback-modal .fm-row {
+    display: flex;
+    gap: 10px;
+    margin-top: 18px;
+  }
+  .feedback-modal .fm-btn {
+    flex: 1;
+    padding: 11px;
+    border-radius: 10px;
+    border: none;
+    font-size: 14px;
+    font-weight: 700;
+    cursor: pointer;
+  }
+  .feedback-modal .fm-cancel {
+    background: var(--accent-bg);
+    color: var(--accent-text);
+  }
+  .feedback-modal .fm-submit {
+    background: var(--accent);
+    color: #fff;
+  }
+  .feedback-modal .fm-submit:disabled { opacity: 0.6; }
+  .fm-status {
+    font-size: 12.5px;
+    margin-top: 10px;
+    text-align: center;
+  }
+  .fm-status.ok { color: #2f7a3d; }
+  .fm-status.err { color: #b8341a; }
   footer {
     text-align: center;
     font-size: 11px;
@@ -374,6 +520,45 @@
 <button class="fab-scroll" id="fab-scroll" aria-label="Ir al final de la página">
   <span id="fab-icon">&#8595;</span>
 </button>
+<button class="fab-feedback" id="fab-feedback" aria-label="Deja tu feedback acá">
+  <i class="ti ti-heart-handshake"></i>
+  <span class="fm-label">¡Puedes dejar tu feedback acá! Lo agradecería mucho :)</span>
+  <span class="fm-close" id="fm-close" aria-label="Cerrar este mensaje" title="Cerrar">&#10005;</span>
+</button>
+<button class="fab-feedback-restore" id="fab-feedback-restore" aria-label="Mostrar botón de feedback" title="Feedback">
+  💬
+</button>
+
+<div class="feedback-overlay" id="feedback-overlay">
+  <div class="feedback-modal">
+    <h3>Sugerencias y feedback</h3>
+    <p class="fm-sub">¿Encontraste un error, falta un término o tienes una idea? Cuéntanos.</p>
+    <form id="feedback-form" action="https://formspree.io/f/xwlevjnv" method="POST">
+      <label for="fm-type">Tipo de mensaje</label>
+      <select id="fm-type" name="Tipo">
+        <option value="Sugerencia">Sugerencia</option>
+        <option value="Error o dato incorrecto">Error o dato incorrecto</option>
+        <option value="Término faltante">Término faltante</option>
+        <option value="Otro">Otro</option>
+      </select>
+
+      <label for="fm-name">Nombre (opcional)</label>
+      <input type="text" id="fm-name" name="Nombre" placeholder="Tu nombre">
+
+      <label for="fm-email">Correo (opcional, por si quieres respuesta)</label>
+      <input type="email" id="fm-email" name="Correo" placeholder="tu@correo.cl">
+
+      <label for="fm-message">Mensaje</label>
+      <textarea id="fm-message" name="Mensaje" required placeholder="Escribe tu sugerencia o comentario aquí..."></textarea>
+
+      <div class="fm-row">
+        <button type="button" class="fm-btn fm-cancel" id="fm-cancel">Cancelar</button>
+        <button type="submit" class="fm-btn fm-submit" id="fm-submit">Enviar</button>
+      </div>
+      <p class="fm-status" id="fm-status"></p>
+    </form>
+  </div>
+</div>
 
 <script>
 const terms = [
@@ -1120,6 +1305,72 @@ function wireScrollArrows(navId, leftId, rightId){
 }
 wireScrollArrows('alpha-nav', 'alpha-left', 'alpha-right');
 wireScrollArrows('cat-nav', 'cat-left', 'cat-right');
+
+const feedbackBtn = document.getElementById('fab-feedback');
+const feedbackRestoreBtn = document.getElementById('fab-feedback-restore');
+const feedbackOverlay = document.getElementById('feedback-overlay');
+const feedbackForm = document.getElementById('feedback-form');
+const fmCancel = document.getElementById('fm-cancel');
+const fmSubmit = document.getElementById('fm-submit');
+const fmStatus = document.getElementById('fm-status');
+const fmClose = document.getElementById('fm-close');
+
+if (localStorage.getItem('construpedia_fb_hidden') === '1') {
+  feedbackBtn.classList.add('hidden-fb');
+  feedbackRestoreBtn.classList.add('show-fb');
+}
+
+fmClose.addEventListener('click', (e) => {
+  e.stopPropagation();
+  feedbackBtn.classList.add('hidden-fb');
+  feedbackRestoreBtn.classList.add('show-fb');
+  localStorage.setItem('construpedia_fb_hidden', '1');
+});
+
+feedbackRestoreBtn.addEventListener('click', () => {
+  feedbackBtn.classList.remove('hidden-fb');
+  feedbackRestoreBtn.classList.remove('show-fb');
+  localStorage.removeItem('construpedia_fb_hidden');
+});
+
+function openFeedback() { feedbackOverlay.classList.add('open'); }
+function closeFeedback() { feedbackOverlay.classList.remove('open'); }
+
+feedbackBtn.addEventListener('click', openFeedback);
+fmCancel.addEventListener('click', closeFeedback);
+feedbackOverlay.addEventListener('click', (e) => {
+  if (e.target === feedbackOverlay) closeFeedback();
+});
+
+feedbackForm.addEventListener('submit', async (e) => {
+  e.preventDefault();
+  fmSubmit.disabled = true;
+  fmSubmit.textContent = 'Enviando...';
+  fmStatus.textContent = '';
+  fmStatus.className = 'fm-status';
+  try {
+    const res = await fetch(feedbackForm.action, {
+      method: 'POST',
+      body: new FormData(feedbackForm),
+      headers: { 'Accept': 'application/json' }
+    });
+    if (res.ok) {
+      fmStatus.textContent = '¡Gracias! Tu mensaje fue enviado.';
+      fmStatus.classList.add('ok');
+      feedbackForm.reset();
+      setTimeout(closeFeedback, 1600);
+    } else {
+      fmStatus.textContent = 'No se pudo enviar. Intenta de nuevo.';
+      fmStatus.classList.add('err');
+    }
+  } catch (err) {
+    fmStatus.textContent = 'Error de conexión. Intenta de nuevo.';
+    fmStatus.classList.add('err');
+  } finally {
+    fmSubmit.disabled = false;
+    fmSubmit.textContent = 'Enviar';
+  }
+});
 
 const fabBtn = document.getElementById('fab-scroll');
 const fabIcon = document.getElementById('fab-icon');
