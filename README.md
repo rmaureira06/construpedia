@@ -6,8 +6,8 @@ Glosario y enciclopedia de términos de construcción civil chilena, con más de
 
 ## Contenido
 
-* **530 términos técnicos**, organizados en 18 categorías: Estructura, Materiales, Normativa e instituciones, Instalaciones, Herramientas, Roles de obra, Geotecnia y topografía, Fundaciones, Maquinaria, Tipos de obra, Faena y obra, Terminaciones, Medidas y trazado, Seguridad, Software y herramientas digitales, Tabiquería, Diseño y Pavimentos.
-* **91 datos curiosos** ("¿sabías que...?") sobre normativa chilena, historia de palabras técnicas y curiosidades del rubro, mostrados de forma rotativa mientras se navega.
+* **+500 términos técnicos**, organizados en distintas categorías.
+* **+90 datos curiosos** ("¿sabías que...?") sobre normativa chilena, historia de palabras técnicas y curiosidades del rubro, mostrados de forma rotativa mientras se navega.
 * Buscador y navegación alfabética A-Z.
 
 ## Funcionalidades
