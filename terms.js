@@ -391,7 +391,7 @@ const terms = [
 ["Calificación energética","Normativa e instituciones","Evaluación oficial que informa el consumo energético de una vivienda o edificio mediante una etiqueta de la A+ a la G."],
 ["Precalificación energética","Normativa e instituciones","Evaluación del desempeño energético de un proyecto en etapa de diseño, previa a la construcción."],
 ["Etiquetado energético","Normativa e instituciones","Sistema que clasifica el desempeño energético de una edificación en una escala de letras, de la A+ a la G."],
-["Reglamentación térmica (DS 60)","Normativa e instituciones","Decreto Supremo que exige requisitos mínimos de aislación térmica para muros, techos y pisos según la zona climática."],
+["Reglamentación térmica (NCh 853)","Normativa e instituciones","Normativa chilena que establece los requisitos térmicos que deben cumplir las viviendas, incluyendo transmitancia térmica, condensación y ventilación mínima."],
 ["Zonificación climático-habitacional (NCh1079)","Normativa e instituciones","Norma que divide el territorio chileno en zonas climáticas para efectos de exigencias de aislación térmica en viviendas."],
 ["Presa","Tipos de obra","Estructura construida para retener agua en un cauce, formando un embalse con fines de riego, agua potable o generación eléctrica."],
 ["Embalse","Tipos de obra","Depósito de agua que se forma al retener el curso de un río mediante una presa."],
