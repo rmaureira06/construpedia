@@ -664,6 +664,5 @@ const terms = [
 ["Panel Solar","Sustentabilidad y Medio Ambiente","Término genérico para dispositivos que captan energía solar; incluye tanto los paneles fotovoltaicos (generan electricidad) como los colectores solares térmicos (calientan agua)."],
 ["Hormigón Proyectado (Shotcrete)","Faena y obra","Técnica de aplicación de hormigón mediante proyección a alta velocidad sobre una superficie, usada en taludes, túneles y reparaciones estructurales."],
 ["Steel Framing","Tipos de obra","Sistema constructivo basado en perfiles de acero galvanizado liviano, usado como estructura de muros y entrepisos en reemplazo de la madera o el hormigón."]
-];ivo cumple con las mismas especificaciones y estándares del especificado originalmente."],
 ["Memorias de Cálculo","Estructura","Documento que respalda y justifica los cálculos estructurales, hidráulicos o eléctricos utilizados en el diseño de un proyecto."]
 ];
